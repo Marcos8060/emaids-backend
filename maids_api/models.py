@@ -59,7 +59,7 @@ options = (
     )
 class Profile(models.Model):
     full_name = models.CharField(max_length=200)
-    user = models.ForeignKey(NewUser, related_name='profiles',null=True ,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='profiles',null=True ,on_delete=models.CASCADE)
     email = models.CharField(max_length=100)
     age = models.CharField(max_length=10)
     location = models.CharField(max_length=300)
@@ -81,7 +81,7 @@ class Profile(models.Model):
 class Comment(models.Model):
     profile = models.ForeignKey(Profile,related_name='profile_comment',on_delete=models.CASCADE)
     comment = models.TextField()
-    user = models.ForeignKey(NewUser,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     # pub_date = models.DateField(auto_now_add=True,blank=True)
 
     def __str__(self):

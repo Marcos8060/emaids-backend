@@ -12,6 +12,7 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 # user registration view
@@ -25,6 +26,20 @@ class CustomUserCreate(APIView):
             if new_user:
                 return Response(status=status.HTTP_201_CREATED)
         return Response(reg_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+class BlacklistTokenUpdateView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = ()
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -89,7 +104,7 @@ class EditProfile(generics.RetrieveUpdateAPIView):
 
 
 class DeleteProfile(generics.RetrieveDestroyAPIView):
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
