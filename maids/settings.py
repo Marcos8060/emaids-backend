@@ -187,7 +187,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 django_heroku.settings(locals())
 
-AUTH_USER_MODEL = 'maids_api.NewUser'
 
 
 # Default primary key field type
