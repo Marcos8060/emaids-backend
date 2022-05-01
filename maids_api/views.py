@@ -28,6 +28,11 @@ class CustomUserCreate(APIView):
         return Response(reg_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
+class UsersList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterUserSerializer
+
+
 class BlacklistTokenUpdateView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = ()

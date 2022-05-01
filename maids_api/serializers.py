@@ -1,13 +1,14 @@
 from .models import *
 from rest_framework import serializers
+from django.contrib.auth.models import User
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=50,min_length=6,write_only=True)
     # profiles = serializers.PrimaryKeyRelatedField(many=True, queryset=Profile.objects.all())
     class Meta:
-        model = NewUser
-        fields = ['email','user_name','password']
+        model = User
+        fields = ['email','username','password']
     
     def create(self,validated_data):
         password = validated_data.pop('password', None)
@@ -19,6 +20,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    # user = RegisterUserSerializer()
     # pub_date=serializers.DateField(format=None,input_formats=None)
     class Meta:
         model = Comment
