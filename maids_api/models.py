@@ -68,7 +68,7 @@ class Profile(models.Model):
     contract = models.CharField(max_length=20,choices=options,default='Full-time')
     bio = models.TextField(blank=False)
     date_joined = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to = 'media/',blank=True)
+    image = models.ImageField(upload_to='images') # image
 
     def __str__(self):
         return self.full_name
