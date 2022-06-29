@@ -19,6 +19,7 @@ from rest_framework_swagger.views import get_swagger_view
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 schema_view = get_swagger_view(title='Pastebin API')
 
 

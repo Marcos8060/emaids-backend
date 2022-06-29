@@ -8,7 +8,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     # profiles = serializers.PrimaryKeyRelatedField(many=True, queryset=Profile.objects.all())
     class Meta:
         model = User
-        fields = ['email','username','password']
+        fields = ['username','email','password']
     
     def create(self,validated_data):
         password = validated_data.pop('password', None)
